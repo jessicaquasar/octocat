@@ -1,0 +1,28 @@
+/* UserInfo */
+
+.card {
+  margin: 0 auto;
+  padding: 1vw;
+  width: 20rem;
+}
+
+/* SearchUser */
+
+.input-group {
+  margin-left: 2vw;
+}
+
+.form-control {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 425px){
+  .btn-dark {
+    position: absolute;
+    right: 8vw;
+  }
+
+  .form-control {
+    width: 52vw !important;
+  }
+}
