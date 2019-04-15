@@ -23,7 +23,7 @@ class SearchUser extends Component {
     e.preventDefault()
     const user = this.state.value
     Api.get(`/${user}`).then(response => this.props.updateUser(response.data))
-    Api.get(`/${user}/repos`).then(response => this.props.updateRepos(response.data)) // verificar aqui
+    .catch(() => { console.log('User not found!')})
   }
 
   render() {
@@ -58,7 +58,6 @@ class SearchUser extends Component {
 
 SearchUser.propTypes = {
   updateUser: PropTypes.func.isRequired,
-  updateRepos: PropTypes.func.isRequired,
 }
 
 export default SearchUser

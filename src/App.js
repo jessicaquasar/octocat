@@ -9,15 +9,10 @@ class App extends Component {
 
   state = {
     user: null,
-    repos: []
   }
 
   updateUser = (user) => {
     this.setState({ user })
-  }
-
-  updateRepos = (repos) => {
-    this.setState({ repos })
   }
   
   render () {
@@ -30,11 +25,9 @@ class App extends Component {
         <div>
           <SearchUser 
             updateUser={ this.updateUser }
-            updateRepos={ this.updateRepos }
           />
           <UserInfo 
             user={ this.state.user }
-            // repos={ this.state.repos }
           />
         </div>
       </div>  
