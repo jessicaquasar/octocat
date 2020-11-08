@@ -1,12 +1,18 @@
 /* UserInfo */
 
 .card {
+  background-color: whitesmoke !important;
   margin: 0 auto;
+  min-height: 32rem;
   padding: 1vw;
   width: 20rem;
 }
 
 /* SearchUser */
+
+.navbar {
+  margin-bottom: 20px;
+}
 
 .input-group {
   margin-left: 2vw;
@@ -16,8 +22,8 @@
   margin-right: 10px;
 }
 
-@media only screen and (max-width: 425px){
-  .btn-dark {
+@media only screen and (max-width: 425px) {
+  .btn-search-custom {
     position: absolute;
     right: 8vw;
   }
@@ -25,4 +31,12 @@
   .form-control {
     width: 52vw !important;
   }
+}
+
+/* NotFound */
+
+.notfound-img {
+  height: 42vmin;
+  margin-bottom: 20px;
+  pointer-events: none;
 }

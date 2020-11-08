@@ -1,63 +1,59 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 
 import Api from '../services/Api'
 import './index.css'
 
-class SearchUser extends Component {
+export const SearchUser = (props) => {
 
-  constructor(props) {
-    super(props)
+  const [user, setUser] = useState('');
 
-    this.state = { value: '' }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
+  const handleChange = (e) => {
+    setUser(e.target.value);
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    const user = this.state.value
-    Api.get(`/${user}`).then(response => this.props.updateUser(response.data))
-    .catch(() => { console.log('User not found!')})
+    Api.get(`/${user}`).then(response => 
+      props.updateUser(response.data),
+      props.setNotFound(false),
+      setUser(''))
+    .catch(() => {props.setNotFound(true); console.log('User not found!')})
   }
+  
 
-  render() {
-    return (
-      <div className='navbar navbar-light bg-light'>
-        <form onSubmit={ this.handleSubmit }>
-          <div className='form-inline'>
-            <div className='input-group'>
-              <div className='input-group-prepend'>
-                <span className='input-group-text' id='basic-addon1'>@</span>
-              </div>
-              <input
-                type='text'
-                value= { this.state.value }
-                onChange = { this.handleChange }
-                className='form-control'
-                placeholder='octocat'
-                aria-label='octocat' 
-                aria-describedby='basic-addon1'
-              />
+  return (
+    <div className='navbar navbar-light bg-light'>
+      <form onSubmit={handleSubmit}>
+        <div className='form-inline'>
+          <div className='input-group'>
+            <div className='input-group-prepend'>
+              <span className='input-group-text' id='basic-addon1'>@</span>
             </div>
-            <button
-              type='submit'
-              className='btn btn-dark'>Find!
-            </button>
+            <input
+              type='text'
+              value= {user}
+              onChange = {handleChange}
+              className='form-control'
+              placeholder='octocat'
+              aria-label='octocat' 
+            />
           </div>
-        </form>
-      </div>
-    )
-  }
+          <button
+            disabled={!user}
+            type='submit'
+            className='btn btn-dark  btn-search-custom'>Find!
+          </button>
+        </div>
+      </form>
+    </div>
+  )
 }
+
 
 SearchUser.propTypes = {
   updateUser: PropTypes.func.isRequired,
+  setNotFound: PropTypes.func.isRequired,
 }
 
 export default SearchUser

@@ -1,38 +1,42 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import './App.css'
 
 import octocat from './assets/octocat.png'
+import { NotFound } from './components/NotFound'
 import SearchUser from './components/SearchUser'
 import UserInfo from './components/UserInfo'
 
-class App extends Component {
+export const App = () => {
 
-  state = {
-    user: null,
-  }
+  const [user, setUser] = useState(null)
+  const [notFound, setNotFound] = useState(false)
 
-  updateUser = (user) => {
-    this.setState({ user })
+  const updateUser = (user) => {
+    setUser(user)
   }
   
-  render () {
-    return (
-      <div className='App'>
-        <header className='App-header'>
-          <img  src={ octocat } className='App-logo' alt={ 'octocat' }/>
-          <h1 className='App-title'>Octocat Search</h1>
-        </header>
-        <div>
-          <SearchUser 
-            updateUser={ this.updateUser }
-          />
+
+  return (
+    <div className='App'>
+      <header className='App-header'>
+        <img  src={octocat} className='App-logo' alt={'octocat'}/>
+        <h1 className='App-title'>Octocat Search</h1>
+      </header>
+      <div>
+        <SearchUser 
+          updateUser={updateUser}
+          setNotFound={setNotFound}
+        />
+        {notFound ?
+          <NotFound /> :
           <UserInfo 
-            user={ this.state.user }
+            user={user}
           />
-        </div>
-      </div>  
-    )
-  }
+        }
+      </div>
+    </div>  
+  )
+  
 }
 
 export default App;
